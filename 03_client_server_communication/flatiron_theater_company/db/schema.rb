@@ -10,18 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_22_201308) do
-
-  create_table "productions", force: :cascade do |t|
-    t.string "title"
-    t.string "genre"
-    t.text "description"
-    t.float "budget"
-    t.string "image"
-    t.string "director"
-    t.boolean "ongoing"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+ActiveRecord::Schema.define(version: 20_220_622_201_308) do
+  create_table 'productions', force: :cascade do |t|
+    t.string 'title'
+    t.string 'genre'
+    t.text 'description'
+    t.float 'budget'
+    t.string 'image'
+    t.string 'director'
+    t.boolean 'ongoing'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
-
 end

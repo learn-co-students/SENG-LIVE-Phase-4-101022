@@ -4,11 +4,21 @@ import styled from 'styled-components'
 
 function ProductionDetail() {
   const [production, setProduction] = useState({crew_members:[], performers_and_roles:[]})
+  const [error, setError] = useState(null)
   const params = useParams()
+  console.log(params)
   
   useEffect(()=>{
     //GET to '/productions/:id'
- 
+    fetch(`/productions/${params.id}`)
+    .then(res => {
+      console.log(res)
+      if(res.ok){
+        res.json().then(setProduction)
+      } else {
+        res.json().then(data => setError(data.error))
+      }
+    })
   },[])
   
  
@@ -16,6 +26,8 @@ function ProductionDetail() {
   const {title, budget, genre, image,description} = production 
   //Place holder data, will be replaced in the assosiations lecture. 
   const crew_members = ['Lily-Mai Harding', 'Cathy Luna', 'Tiernan Daugherty', 'Giselle Nava', 'Alister Wallis', 'Aishah Rowland', 'Keiren Bernal', 'Aqsa Parrish', 'Daanyal Laing', 'Hollie Haas']
+  
+  if(error) return <h2>{error}</h2>
   return (
       <CardDetail>
         <h1>{title}</h1>

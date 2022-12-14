@@ -13,6 +13,11 @@ function App() {
 
   useEffect(() => {
     //GET to '/productions'
+    fetch('/productions')
+    .then(res => res.json())
+    .then(setProductions)
+    //data => setProductions('hi')
+
   },[])
 
   const addProduction = (production) => setProductions(current => [...current,production])
