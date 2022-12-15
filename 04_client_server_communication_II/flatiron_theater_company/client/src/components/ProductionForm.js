@@ -26,7 +26,6 @@ function ProductionForm({addProduction}) {
   
     return (
       <div className='App'>
-      {errors?errors.map(e => <div>{e}</div>):null}
       <Form onSubmit={onSubmit}>
         <label>Title </label>
         <input type='text' name='title' value={formData.title} onChange={handleChange} />
@@ -46,8 +45,8 @@ function ProductionForm({addProduction}) {
         <label>Description</label>
         <textarea type='text' rows='4' cols='50' name='description' value={formData.description} onChange={handleChange} />
       
-        <input type='submit' value='Update Production' />
-      </Form>
+        <input type='submit' />
+      </Form> 
       </div>
     )
   }
