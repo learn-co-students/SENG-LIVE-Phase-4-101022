@@ -1,5 +1,6 @@
 import React, { useState} from 'react'
 import styled from 'styled-components'
+import {useHistory} from 'react-router-dom'
 
 
 function ProductionForm({addProduction}) {
@@ -11,7 +12,9 @@ function ProductionForm({addProduction}) {
     director:'',
     description:''
   })
+  const [errors, setErrors] = useState(null)
 
+  let history = useHistory()
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -21,11 +24,33 @@ function ProductionForm({addProduction}) {
   function onSubmit(e){
     e.preventDefault()
     //POST '/productions'
+    fetch('/productions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({...formData, ongoing:true})
+    })
+    .then(res => {
+      if(res.ok){
+        res.json().then(data => {
+          addProduction(data)
+          history.push(`/productions/${data.id}`)
+        })
+      }else {
+        res.json().then(data => {
+          console.log(data.errors)
+          console.log(Object.entries(data.errors))
+          setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`))
+          // setErrors(data.errors)
+
+        })
+      }
+    })
    
   }
   
     return (
       <div className='App'>
+      {errors?errors.map(e => <div>{e}</div>):null}
       <Form onSubmit={onSubmit}>
         <label>Title </label>
         <input type='text' name='title' value={formData.title} onChange={handleChange} />
